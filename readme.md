@@ -17,7 +17,7 @@
 
 - **启用数据包**：
   ```bash
-  /datapack enable "file/rand_loot"
+  /datapack enable "file/rand_recipes"
   ```
 ## Todo List
 
