@@ -2,9 +2,9 @@
     "pack": {
       "pack_format": 16,
       "description": {
-        "text":"随机掉落",
+        "text":"随机合成",
         "color":"red",
         "bold":true
       }
     }
-  }
+ }
