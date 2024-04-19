@@ -2,6 +2,30 @@ import os
 import json
 import random
 # 原始文件夹路径
+def format_item_string(input_string):
+    """
+    Format an item string from format 1 or format 2 to format 3.
+
+    Format 1: '{"item": "minecraft:item_name"}'
+    Format 2: '"minecraft:item_name"'
+    Format 3: '{"count": number, "item": "minecraft:item_name"}'
+
+    :param input_string: A string in format 1 or format 2.
+    :return: A string in format 3.
+    """
+    # Check if input is in format 1 and convert to dict if so
+    if input_string.strip().startswith('{'):
+        item_dict = eval(input_string)  # Convert string representation of dict to actual dict
+        # If 'count' is not in the dict, add it with a value of 1
+        item_dict.setdefault('count', 1)
+    else:
+        # Input is in format 2, create a new dict with 'item' and default 'count'
+        item_dict = {"count": 1, "item": input_string.strip('"')}
+
+    # Convert dict back to string in format 3
+    formatted_string = str(item_dict)
+    return formatted_string
+
 source_folder = r'./recipes'
 # 目标文件夹路径，确保这个文件夹可以被创建
 target_folder = r'./rand_recipes/data/minecraft/recipes'
@@ -37,7 +61,7 @@ for recipe_path in recipes_paths:
         recipes_result.append(recipe.get('result', {}))
 # 随机化结果
 random.shuffle(recipes_result)
-
+recipes_result = [eval(format_item_string(str(x))) for x in recipes_result]
 # 修改每个json文件并保存
 for recipe_path, name, result in zip(recipes_paths, recipes_name, recipes_result):
     with open(recipe_path, 'r') as f:
