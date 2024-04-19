@@ -35,8 +35,6 @@ if os.path.exists(target_folder):
         for file in files:
             if file.endswith('.json'):
                 os.remove(os.path.join(root, file))
-        for dir in dirs:
-            os.rmdir(os.path.join(root, dir))
 else:
     os.makedirs(target_folder)
 
